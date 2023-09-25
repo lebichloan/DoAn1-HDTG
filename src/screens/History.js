@@ -177,84 +177,7 @@ const History = props => {
         </View>
       </> */}
 
-      <>
-        <View style={{height: '75%', zIndex: 1, marginTop: 15}}>
-          <FlatList
-            data={data}
-            keyExtractor={item => item.key}
-            renderItem={({item}) => (
-              <TouchableOpacity
-                style={{
-                  // width: '90%',
-                  marginHorizontal: 10,
-                  marginVertical: 5,
-                  flexDirection: 'row',
-                  backgroundColor: CUSTOM_COLOR.White,
-                  paddingVertical: 10,
-                  paddingHorizontal: 5,
-                  borderWidth: 1,
-                  borderColor: CUSTOM_COLOR.Silver,
-                  alignItems: 'center',
-                  // borderRadius: 5,
-                }}
-                onPress={() => {
-                  navigation.navigate('HistoryDetail', {data: item});
-                }}>
-                {item.HinhAnh && (
-                  <Image
-                    source={{uri: item.HinhAnh}}
-                    style={{
-                      width: 70,
-                      height: 70,
-                      borderRadius: 35,
-                      borderWidth: 1,
-                      borderColor: CUSTOM_COLOR.Silver,
-                      marginHorizontal: 10,
-                    }}
-                  />
-                )}
-                <View
-                  style={{
-                    flex: 1,
-                    justifyContent: 'center',
-                    marginHorizontal: 10,
-                  }}>
-                  <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                    <Text
-                      style={{
-                        fontSize: 10,
-                        paddingVertical: 2,
-                        color: CUSTOM_COLOR.Red,
-                      }}>
-                      ID: {item.key}
-                    </Text>
-                    <View
-                      style={{
-                        width: 2,
-                        height: '100%',
-                        marginHorizontal: 5,
-                        backgroundColor: CUSTOM_COLOR.Silver,
-                      }}
-                    />
-                    <Text
-                      style={{
-                        fontSize: 10,
-                        paddingVertical: 2,
-                      }}>
-                      {item.ThoiGian}
-                    </Text>
-                  </View>
-                  <Text style={{color: CUSTOM_COLOR.Black, maxHeight: 50}}>
-                    {item.CauHoi}
-                  </Text>
-                </View>
-              </TouchableOpacity>
-            )}
-          />
-        </View>
-      </>
-
-      <>
+      {/* <>
         <View
           style={{
             flexDirection: 'row',
@@ -272,9 +195,93 @@ const History = props => {
             {count}
           </Text>
         </View>
-      </>
+      </> */}
 
       <>
+        <View style={{flex: 1, zIndex: 1, marginTop: 30, marginBottom: '20%'}}>
+          <FlatList
+            data={data}
+            keyExtractor={item => item.key}
+            renderItem={({item}) => (
+              <View
+                style={{
+                  flexDirection: 'column',
+                  // marginHorizontal: 10,
+                }}>
+                <TouchableOpacity
+                  style={{
+                    flexDirection: 'row',
+                    backgroundColor: CUSTOM_COLOR.White,
+                    paddingVertical: 10,
+                    paddingHorizontal: 5,
+                    alignItems: 'center',
+                  }}
+                  onPress={() => {
+                    navigation.navigate('HistoryDetail', {data: item});
+                  }}>
+                  {item.HinhAnh && (
+                    <Image
+                      source={{uri: item.HinhAnh}}
+                      style={{
+                        width: 70,
+                        height: 70,
+                        borderRadius: 35,
+                        borderWidth: 1,
+                        borderColor: CUSTOM_COLOR.Silver,
+                        marginHorizontal: 10,
+                      }}
+                    />
+                  )}
+                  <View
+                    style={{
+                      flex: 1,
+                      justifyContent: 'center',
+                      marginHorizontal: 10,
+                    }}>
+                    <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                      <Text
+                        style={{
+                          fontSize: 10,
+                          paddingVertical: 2,
+                          color: CUSTOM_COLOR.Red,
+                        }}>
+                        ID: {item.key}
+                      </Text>
+                      <View
+                        style={{
+                          width: 2,
+                          height: '100%',
+                          marginHorizontal: 5,
+                          backgroundColor: CUSTOM_COLOR.Silver,
+                        }}
+                      />
+                      <Text
+                        style={{
+                          fontSize: 10,
+                          paddingVertical: 2,
+                        }}>
+                        {item.ThoiGian}
+                      </Text>
+                    </View>
+                    <Text style={{color: CUSTOM_COLOR.Black, maxHeight: 50}}>
+                      {item.CauHoi}
+                    </Text>
+                  </View>
+                </TouchableOpacity>
+                <View
+                  style={{
+                    width: '100%',
+                    height: 2,
+                    backgroundColor: CUSTOM_COLOR.Silver,
+                  }}
+                />
+              </View>
+            )}
+          />
+        </View>
+      </>
+
+      {/* <>
         <View
           style={{
             justifyContent: 'flex-end',
@@ -291,7 +298,7 @@ const History = props => {
             }}
           />
         </View>
-      </>
+      </> */}
     </SafeAreaView>
   );
 };

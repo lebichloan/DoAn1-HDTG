@@ -1,5 +1,5 @@
 const Poppins = 'Poppins-Black';
-const PoetsenOne = 'PoetsenOne-';
+const PoetsenOne = 'Montserrat-';
 
 const FONT_FAMILY = {
   Black: Poppins + 'Black',
@@ -21,7 +21,7 @@ const FONT_FAMILY = {
   Thin: Poppins + 'Thin',
   ThinItalic: Poppins + 'ThinItalic',
   Regular: PoetsenOne + 'Regular',
-  Logo: 'DreamAvenue',
+  Logo: 'Malibu',
 };
 
 export default FONT_FAMILY;

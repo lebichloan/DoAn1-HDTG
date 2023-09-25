@@ -32,13 +32,12 @@ const FloatingLabelDateTime = props => {
             color: CUSTOM_COLOR.Black,
             fontSize: 16,
             paddingHorizontal: 20,
-            justifyContent: 'center'
+            justifyContent: 'center',
           }}
           onFocus={handleFocus}
           onBlur={handleBlur}
           onPress={props.onPress}>
-          <Text
-            style={{color: CUSTOM_COLOR.Black, fontSize: 16}}>
+          <Text style={{color: CUSTOM_COLOR.Black, fontSize: 16}}>
             {props.value}
           </Text>
         </TouchableOpacity>

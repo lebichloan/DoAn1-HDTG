@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
@@ -16,6 +15,7 @@ import {firebase} from '../../Firebase/firebase.js';
 import NavigateButton from '../components/Buttons/NavigateButton.js';
 import FloatingLabelInputWithIcon from '../components/Cards/FloatingLabelInputWithIcon.js';
 import FloatingLabelPasswordWithIcon from '../components/Cards/FloatingLabelPasswordWithIcon.js';
+import FONT_FAMILY from '../constants/fonts.js';
 
 const SignIn = props => {
   const {navigation} = props;
@@ -70,6 +70,7 @@ const SignIn = props => {
               marginTop: 30,
               color: CUSTOM_COLOR.Black,
               fontWeight: 'bold',
+              fontFamily: FONT_FAMILY.Logo,
             }}>
             Wellcome
           </Text>

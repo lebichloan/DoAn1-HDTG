@@ -36,6 +36,7 @@
 		CF3E7DFDEB9848BAB7ADE50F /* Montserrat-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 23509A07E3FA4835A8561B58 /* Montserrat-Thin.ttf */; };
 		06DCCB1DF573446CB6A5D10C /* Montserrat-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 69F2A14C2E4445F1BDC99B64 /* Montserrat-ThinItalic.ttf */; };
 		579D0C7786BA4550B18F9BBE /* Montserrat-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4C7E541453C34322BCB443BE /* Montserrat-VariableFont_wght.ttf */; };
+		16B06B9C021941E7B5BF45AD /* Malibu.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2ADF60378A024F2B9571C131 /* Malibu.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,6 +89,7 @@
 		23509A07E3FA4835A8561B58 /* Montserrat-Thin.ttf */ = {isa = PBXFileReference; name = "Montserrat-Thin.ttf"; path = "../src/assets/fonts/Montserrat/Montserrat-Thin.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		69F2A14C2E4445F1BDC99B64 /* Montserrat-ThinItalic.ttf */ = {isa = PBXFileReference; name = "Montserrat-ThinItalic.ttf"; path = "../src/assets/fonts/Montserrat/Montserrat-ThinItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		4C7E541453C34322BCB443BE /* Montserrat-VariableFont_wght.ttf */ = {isa = PBXFileReference; name = "Montserrat-VariableFont_wght.ttf"; path = "../src/assets/fonts/Montserrat/Montserrat-VariableFont_wght.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		2ADF60378A024F2B9571C131 /* Malibu.ttf */ = {isa = PBXFileReference; name = "Malibu.ttf"; path = "../src/assets/fonts/Malibu.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -218,6 +220,7 @@
 				23509A07E3FA4835A8561B58 /* Montserrat-Thin.ttf */,
 				69F2A14C2E4445F1BDC99B64 /* Montserrat-ThinItalic.ttf */,
 				4C7E541453C34322BCB443BE /* Montserrat-VariableFont_wght.ttf */,
+				2ADF60378A024F2B9571C131 /* Malibu.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -341,6 +344,7 @@
 				CF3E7DFDEB9848BAB7ADE50F /* Montserrat-Thin.ttf in Resources */,
 				06DCCB1DF573446CB6A5D10C /* Montserrat-ThinItalic.ttf in Resources */,
 				579D0C7786BA4550B18F9BBE /* Montserrat-VariableFont_wght.ttf in Resources */,
+				16B06B9C021941E7B5BF45AD /* Malibu.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

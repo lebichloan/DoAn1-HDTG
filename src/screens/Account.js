@@ -144,6 +144,7 @@ const Account = props => {
                 fontWeight: 'bold',
                 color: CUSTOM_COLOR.Black,
                 marginVertical: 5,
+                fontFamily: FONT_FAMILY.Italic,
               }}>
               {fullname}
             </Text>
