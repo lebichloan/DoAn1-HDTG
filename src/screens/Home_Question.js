@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   Modal,
   Button,
+  Alert,
 } from 'react-native';
 import CUSTOM_COLOR from '../constants/colors.js';
 import FONT_FAMILY from '../constants/fonts.js';
@@ -29,6 +30,7 @@ import {firebase} from '../../Firebase/firebase.js';
 import {getDatabase, ref, onValue} from 'firebase/database';
 import UpdateData from '../funtion/UpdateData.js';
 import {IMG_simpleFrog} from '../assets/images/index.js';
+import axios from 'axios';
 
 const Home_Question = props => {
   const {navigation} = props;
@@ -39,9 +41,38 @@ const Home_Question = props => {
   const [isFocused, setIsFocused] = useState(false);
   const [onChange, setOnChange] = useState(false);
   const [text, setText] = useState('');
+  const [imageUrl, setImageUrl] = useState(null);
   const [question, setQuestion] = useState('');
   const [answer, setAnswer] = useState('123');
   const [hasPush, setHasPush] = useState(false);
+
+  const submitQuestion = async () => {
+    getQuestion();
+
+    console.log(
+      '🚀 ~ file: App.tsx:19 ~ App ~ question:',
+      JSON.stringify({imageUrl, question}),
+    );
+
+    try {
+      const response = await fetch('http://10.0.2.2:5000/predict', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({imageUrl, question}),
+      });
+
+      const data = await response.json();
+      if (data.predictedAnswer) {
+        setAnswer(data.predictedAnswer);
+      } else if (data.error) {
+        Alert.alert('Error', data.error);
+      }
+    } catch (error) {
+      Alert.alert('Error', error.message);
+    }
+  };
 
   const getUserData = uid => {
     const db = getDatabase();
@@ -124,7 +155,8 @@ const Home_Question = props => {
           setText('');
           setHasPush(false);
         }
-        console.log('Image uri: ', imageUri);
+        console.log('Image uri: ', response.assets[0].uri);
+        handleUpData(imageUri);
       }
     });
   };
@@ -151,8 +183,37 @@ const Home_Question = props => {
           setHasPush(false);
         }
         console.log('Image uri: ', response.assets[0].uri);
+        handleUpData(imageUri);
       }
     });
+  };
+
+  const handleUpData = photoPath => {
+    const data = new FormData();
+    data.append('file', {
+      uri: photoPath,
+      type: 'image/jpg',
+      name: photoPath.split('/').pop(),
+    });
+    data.append('upload_preset', 'movie_recommend');
+    data.append('cloud_name', 'dvpt9evqt');
+
+    fetch('https://api.cloudinary.com/v1_1/dvpt9evqt/image/upload', {
+      method: 'POST',
+      body: data,
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'multipart/form-data',
+      },
+    })
+      .then(res => res.json())
+      .then(data => {
+        setImageUrl(data.url);
+        console.log(data);
+      })
+      .catch(error => {
+        Alert.alert('Error While Uploading');
+      });
   };
 
   const getQuestion = () => {
@@ -380,25 +441,6 @@ const Home_Question = props => {
         <View />
       )}
 
-      {/* <>
-        <View
-          style={{
-            justifyContent: 'flex-end',
-            alignItems: 'flex-end',
-          }}>
-          <Image
-            source={IMG_simpleFrog}
-            style={{
-              width: 150,
-              height: 150,
-              resizeMode: 'contain',
-              position: 'relative',
-              marginTop: 100,
-            }}
-          />
-        </View>
-      </> */}
-
       <>
         <View
           style={{
@@ -470,7 +512,7 @@ const Home_Question = props => {
                 value={text}
               />
               {onChange ? (
-                <TouchableOpacity onPress={getQuestion}>
+                <TouchableOpacity onPress={submitQuestion}>
                   <Image
                     source={IC_send}
                     style={{width: 30, height: 30, margin: 5}}
