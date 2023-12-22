@@ -198,7 +198,7 @@ const History = props => {
       </> */}
 
       <>
-        <View style={{flex: 1, zIndex: 1, marginTop: 30, marginBottom: '20%'}}>
+        <View style={{flex: 1, zIndex: 1, marginTop: 5, marginBottom: '20%'}}>
           <FlatList
             data={data}
             keyExtractor={item => item.key}
@@ -206,7 +206,8 @@ const History = props => {
               <View
                 style={{
                   flexDirection: 'column',
-                  // marginHorizontal: 10,
+                  marginHorizontal: 10,
+                  marginVertical: 2.5,
                 }}>
                 <TouchableOpacity
                   style={{
