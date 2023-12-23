@@ -37,13 +37,16 @@ const Home_Question = props => {
   const [isFocused, setIsFocused] = useState(false);
   const [onChange, setOnChange] = useState(false);
   const [text, setText] = useState('');
-  const [imageUrl, setImageUrl] = useState(null);
   const [question, setQuestion] = useState('');
   const [answer, setAnswer] = useState('');
   const [hasPush, setHasPush] = useState(false);
+  const [isLoading, setLoading] = useState(false);
 
   const submitQuestion = async () => {
     getQuestion();
+    setLoading(true);
+    console.log('loading: ', isLoading);
+
     try {
       const formData = new FormData();
       formData.append('image', {
@@ -53,10 +56,12 @@ const Home_Question = props => {
       });
 
       const data = {
-        question: question,
+        question: text,
       };
 
       formData.append('data', JSON.stringify(data));
+
+      setText('');
 
       const apiEndpoint = 'https://hdtg.azurewebsites.net/predict_vqa';
 
@@ -70,9 +75,22 @@ const Home_Question = props => {
 
       const result = await response.json();
       console.log('result: ', result);
-      setAnswer(result.data.answer);
+
+      setLoading(false);
+      console.log('loading2: ', isLoading);
+
+      if (result.data.answer === undefined) {
+        if (result.data.question !== undefined) {
+          Alert.alert('Error', result.data.question);
+        } else if (result.data.image !== undefined) {
+          Alert.alert('Error', result.data.image);
+        }
+      } else {
+        setAnswer(result.data.answer);
+        console.log('answer: ', result.data.answer);
+      }
     } catch (error) {
-      console.error('Error fetching data:', error);
+      Alert.alert('Error', error);
     }
   };
 
@@ -158,7 +176,6 @@ const Home_Question = props => {
           setHasPush(false);
         }
         console.log('Image uri: ', response.assets[0].uri);
-        handleUpData(imageUri);
       }
     });
   };
@@ -172,7 +189,6 @@ const Home_Question = props => {
         mediaType: 'photo',
       });
 
-      handleUpData(image.path);
       setImageUri(image.path);
       if (hasPush === true) {
         setQuestion('');
@@ -181,7 +197,7 @@ const Home_Question = props => {
         setHasPush(false);
       }
     } catch (error) {
-      Alert.alert('Image picker error:', error.message);
+      Alert.alert('Error', error.message);
     }
   };
 
@@ -194,7 +210,6 @@ const Home_Question = props => {
         mediaType: 'photo',
       });
 
-      handleUpData(image.path);
       setImageUri(image.path);
       if (hasPush === true) {
         setQuestion('');
@@ -203,7 +218,7 @@ const Home_Question = props => {
         setHasPush(false);
       }
     } catch (error) {
-      Alert.alert('Image picker error:', error.message);
+      Alert.alert('Error', error.message);
     }
   };
 
@@ -229,59 +244,17 @@ const Home_Question = props => {
           setHasPush(false);
         }
         console.log('Image uri: ', response.assets[0].uri);
-        handleUpData(imageUri);
       }
     });
   };
 
-  const handleUpData = photoPath => {
-    const data = new FormData();
-    data.append('file', {
-      uri: photoPath,
-      type: 'image/jpg',
-      name: photoPath.split('/').pop(),
-    });
-    data.append('upload_preset', 'movie_recommend');
-    data.append('cloud_name', 'dvpt9evqt');
-
-    fetch('https://api.cloudinary.com/v1_1/dvpt9evqt/image/upload', {
-      method: 'POST',
-      body: data,
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'multipart/form-data',
-      },
-    })
-      .then(res => res.json())
-      .then(data => {
-        setImageUrl(data.url);
-        console.log('data url: ', data);
-      })
-      .catch(error => {
-        Alert.alert('Error While Uploading');
-      });
-  };
-
   const getQuestion = () => {
-    // if (question !== text || hasPush === true) {
-    if (hasPush === true) {
-      setQuestion(text);
-      setText('');
-      setAnswer('');
-      setHasPush(false);
-    } else {
-      setQuestion(text);
-      setText('');
-      setAnswer('');
-    }
-  };
-
-  const clearAll = () => {
-    setImageUri(null);
-    setQuestion('');
+    console.log('text: ', text);
+    setQuestion(text);
     setAnswer('');
-    setText('');
-    setHasPush(false);
+    if (hasPush === true) {
+      setHasPush(false);
+    }
   };
 
   useEffect(() => {
@@ -295,14 +268,14 @@ const Home_Question = props => {
     }
 
     if (
-      imageUrl !== null &&
+      imageUri !== null &&
       question !== '' &&
       answer !== '' &&
       hasPush === false
     ) {
       pushData();
     }
-  }, [answer, count, imageUrl, question, text]);
+  }, [answer, count, imageUri, question, text]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -413,7 +386,9 @@ const Home_Question = props => {
           <View />
         )}
 
-        {answer ? (
+        {isLoading ? (
+          <LoadingComponent text="Wait for loading" />
+        ) : (
           <>
             <View
               style={{
@@ -454,8 +429,6 @@ const Home_Question = props => {
               </View>
             </View>
           </>
-        ) : (
-          <View />
         )}
 
         <>
@@ -471,7 +444,6 @@ const Home_Question = props => {
                 width: '100%',
                 height: 50,
                 flexDirection: 'row',
-                // marginBottom: isFocused ? '0%' : '0%',
                 backgroundColor: CUSTOM_COLOR.White,
               }}>
               {isFocused ? (

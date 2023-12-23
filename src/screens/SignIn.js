@@ -118,7 +118,15 @@ const SignIn = props => {
           <View style={styles.buttonContainer}>
             <NavigateButton
               text="Login"
-              onPress={() => handleSignIn(email, password)}
+              onPress={() => {
+                if (email === '') {
+                  Alert.alert('Error', 'Email is required');
+                } else if (password === '') {
+                  Alert.alert('Error', 'Password is required');
+                } else {
+                  handleSignIn(email, password);
+                }
+              }}
             />
           </View>
         </>
