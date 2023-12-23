@@ -8,13 +8,9 @@ import {IMG_succeed} from '../assets/images/index.js';
 
 const SignUp_Succeed = props => {
   const {navigation} = props;
-  const [status, setStatus] = useState('');
+
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.headerContainer}>
-        <HeaderWithBack onPress={() => navigation.goBack()} title="Login" />
-      </View>
-
       <>
         <View style={styles.imageContainer}>
           <Image
@@ -29,13 +25,12 @@ const SignUp_Succeed = props => {
           <View style={styles.unitContainer}>
             <Text style={styles.titleStyle}>CONGRATULATION! </Text>
           </View>
-          {/* <View style={{width: '100%', height: 10}} /> */}
           <View style={styles.unitContainer}>
             <Text style={styles.contentStyle}>
               Your account has been activated
             </Text>
             <Text style={styles.contentStyle}>
-              Please login to use our service
+              To continue please login to use our service
             </Text>
           </View>
         </View>
@@ -45,7 +40,7 @@ const SignUp_Succeed = props => {
         <View style={styles.buttonContainer}>
           <NavigateButton
             text="GO TO LOGIN"
-            onPress={() => navigation.navigate('Login')}
+            onPress={() => navigation.navigate('SignIn')}
           />
         </View>
       </>
@@ -55,17 +50,13 @@ const SignUp_Succeed = props => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: CUSTOM_COLOR.Anakiwa,
-  },
-  headerContainer: {
-    width: '100%',
-    height: 100,
+    backgroundColor: CUSTOM_COLOR.Zanah,
   },
   imageContainer: {
     width: '80%',
     height: 330,
-    marginLeft: '10%',
-    marginTop: -35,
+    marginLeft: '7%',
+    marginTop: '15%',
   },
   textContainer: {
     width: '90%',
@@ -83,14 +74,15 @@ const styles = StyleSheet.create({
   },
   titleStyle: {
     fontFamily: FONT_FAMILY.Bold,
-    fontSize: 35,
+    fontSize: 30,
     color: CUSTOM_COLOR.Black,
     fontWeight: 'bold',
   },
   contentStyle: {
     fontFamily: FONT_FAMILY.Medium,
-    fontSize: 20,
+    fontSize: 17,
     color: CUSTOM_COLOR.Black,
+    marginVertical: 5,
   },
   buttonContainer: {
     width: '90%',

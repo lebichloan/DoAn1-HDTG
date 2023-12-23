@@ -39,6 +39,7 @@ const SignUp = props => {
         .createUserWithEmailAndPassword(email, password);
       console.log('User registered successfully:', userCredentials.user);
       handlePushData(userCredentials.user.uid, fullName, email);
+      navigation.navigate('SignUp_Succeed');
     } catch (error) {
       console.log('Error registering user: ', error);
       Alert.alert('Error', error.message);
@@ -120,7 +121,24 @@ const SignUp = props => {
         <View style={styles.buttonContainer}>
           <NavigateButton
             text="Sign Up"
-            onPress={() => handleSignUp(fullName, email, password)}
+            onPress={() => {
+              if (fullName === '') {
+                Alert.alert('Error', 'Full name is required');
+              } else if (email === '') {
+                Alert.alert('Error', 'Email is required');
+              } else if (password === '') {
+                Alert.alert('Error', 'Password is required');
+              } else if (confirmPassword === '') {
+                Alert.alert('Error', 'Confirm password is required');
+              } else if (password !== confirmPassword) {
+                Alert.alert(
+                  'Error',
+                  'Confirm password must be same as password',
+                );
+              } else {
+                handleSignUp(fullName, email, password);
+              }
+            }}
           />
         </View>
       </>
