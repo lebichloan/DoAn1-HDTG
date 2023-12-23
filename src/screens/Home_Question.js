@@ -45,24 +45,34 @@ const Home_Question = props => {
   const submitQuestion = async () => {
     getQuestion();
     try {
-      const response = await fetch('http://10.0.2.2:5000/predict', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({imageUrl, question}),
+      const formData = new FormData();
+      formData.append('image', {
+        uri: imageUri,
+        type: 'image/jpeg',
+        name: 'image.jpg',
       });
 
-      const data = await response.json();
-      console.log('data reponse: ', data);
-      if (data.predictedAnswer) {
-        setAnswer(data.predictedAnswer);
-        console.log('answer: ', answer);
-      } else if (data.error) {
-        Alert.alert('Error', data.error);
-      }
+      const data = {
+        question: question,
+      };
+
+      formData.append('data', JSON.stringify(data));
+
+      const apiEndpoint = 'https://hdtg.azurewebsites.net/predict_vqa';
+
+      const response = await fetch(apiEndpoint, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
+      const result = await response.json();
+      console.log('result: ', result);
+      setAnswer(result.data.answer);
     } catch (error) {
-      Alert.alert('Error', error.message);
+      console.error('Error fetching data:', error);
     }
   };
 
